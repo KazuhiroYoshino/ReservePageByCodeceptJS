@@ -1,0 +1,24 @@
+{
+  "name": "ReservePageNew",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "codeceptjs": "^3.0.7",
+    "playwright": "^1.13.1",
+    "playwright-cli": "^0.180.0"
+  },
+  "dependencies": {
+    "date-fns": "^1.30.1",
+    "date-fns-timezone": "^0.1.4",
+    "date-utils": "^1.2.21",
+    "moment": "^2.29.1",
+    "moment-timezone": "^0.5.33"
+  }
+}
