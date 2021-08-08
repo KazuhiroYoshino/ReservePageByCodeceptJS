@@ -8,12 +8,13 @@ const dayName = format(jtcDate, 'dddd');
 //console.log(jstString);
 //console.log(dayName);
 
-let dateFrom;
-let dateTo;
+let startDate;
+let endDate;
 
 module.exports.dateFromSet = function() {
-    		dateFrom = `${format(jtcDate, "YYYY")}年${format(jtcDate, "MM")}月${format(jtcDate, "DD")}日`;
+    		startDate = `${format(dateFrom, "YYYY")}年${format(dateFrom, "M")}月${format(dateFrom, "D")}日`;
 //    		dateFrom = `${format(zonedTargetDate, "YYYY")}年${format(zonedTargetDate, "MM")}月${format(zonedTargetDate, "DD")}日`.replace(/\n|\r/g, '');
+    return startDate;
 };
 
 module.exports.sunday = function() {
@@ -47,12 +48,11 @@ module.exports.sunday = function() {
                     return testReserveDate;
 };
 
-        exports.monday = function() {
+module.exports.monday = function() {
 
             		switch(dayName) {
             		case 'Sunday':
             		    dateFrom = addDays(jtcDate, 6);
-            		    today.add({"months": 0, "days": 1});
             			break;
             		case 'Monday':
             		    dateFrom = jtcDate;
@@ -80,7 +80,7 @@ module.exports.sunday = function() {
                     return testReserveDate;
         };
 
-        exports.tuesday = function(){
+module.exports.tuesday = function(){
 
             		switch(dayName) {
             		case 'Sunday':
@@ -112,7 +112,7 @@ module.exports.sunday = function() {
                     return testReserveDate;
         };
 
-         exports.wednesday = function(){
+module.exports.wednesday = function(){
 
              		switch(dayName) {
              		case 'Sunday':
@@ -144,7 +144,7 @@ module.exports.sunday = function() {
                     return testReserveDate;
          };
 
-        exports.thursday = function(){
+module.exports.thursday = function(){
 
             		switch(dayName) {
             		case 'Sunday':
@@ -176,7 +176,7 @@ module.exports.sunday = function() {
                     return testReserveDate;
         };
 
-        exports.friday = function(){
+module.exports.friday = function(){
 
             		switch(dayName) {
             		case 'Sunday':
@@ -209,7 +209,7 @@ module.exports.sunday = function() {
                     return testReserveDate;
         };
 
-        exports.saturday = function(){
+module.exports.saturday = function(){
 
             		switch(dayName) {
             		case 'Sunday':
@@ -242,16 +242,18 @@ module.exports.sunday = function() {
                     return testReserveDate;
         };
 
-        exports.termSet = function(){
-    	    endDate = addDays(dateFrom, term);
-    	        		dateTo = `
-                                                             ${today.getFullYear()}年
-                                                             ${today.getMonth()+1}月
-                                                             ${today.getDate()}日
-                                                             `.replace(/\n|\r/g, '');
+module.exports.termSet = function(term){
+            var DateTo = addDays(dateFrom, term);
+            		endDate = `${format(DateTo, "YYYY")}年${format(DateTo, "M")}月${format(DateTo, "D")}日`;
+//console.log(jtcDate);
+//console.log(term);
+//console.log(startDate);
+//console.log(endDate);
+
+            return endDate;
         };
 
-        exports.fourMonthAgo = function(){
+module.exports.fourMonthAgo = function(){
     	    today.add({"months": 4, "days": 0});
             var testReserveDate = `
                           ${today.getFullYear()}/

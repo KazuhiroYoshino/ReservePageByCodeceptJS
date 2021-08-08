@@ -2,6 +2,7 @@ const assert = require('assert');
 
 let reserveTestTable = new DataTable(['宿泊初日', '連泊数', '宿泊人数', '朝食', '昼からチェックインプラン', 'お得な観光プラン', '氏名', '合計料金']);
 reserveTestTable.add(['Monday', '1', '1', 'off', 'off'                   ,'off'           ,'武田晴信','7000']);
+reserveTestTable.add(['Monday', '1', '1', 'off', 'off'                   ,'off'           ,'武田晴信','6500']);
 reserveTestTable.add(['Monday'   ,'2'   ,'8'     ,'on' ,'on'                    ,'on'            ,'真田昌虎','144000']);
 reserveTestTable.add(['Monday'   ,'3'   ,'9'     ,'off','off'                   ,'on'            ,'山本寛太','198000']);
 reserveTestTable.add(['Monday'   ,'5'   ,'2'     ,'on' ,'on'                    ,'off'           ,'上杉景虎','82000']);
@@ -39,12 +40,11 @@ reserveTestTable.add(['Sunday'   ,'9'   ,'2'     ,'off','off'                   
 
 Feature('宿泊予約機能');
 
-Data(reserveTestTable).Scenario('Reserve Tests', ({ I , current}) => {
+Data(reserveTestTable).Scenario('Reserve Tests', async({I , current}) => {
     I.ページを移動する('http://example.selenium.jp/reserveApp_Renewal/');
     I.fromDay(current.宿泊初日);
     I.click('#guestname');
     I.selectOption('reserve_t', current.連泊数);
-    I.termSet(current.連泊数);
     I.selectOption('hc', current.宿泊人数);
     if(current.朝食 == 'on'){
         I.checkOption('#breakfast_on');
@@ -53,11 +53,30 @@ Data(reserveTestTable).Scenario('Reserve Tests', ({ I , current}) => {
     }
     if(current.昼からチェックインプラン == 'on'){
         I.checkOption('plan_a');
-    }else{
+    }
+    if(current.お得な観光プラン == 'on') {
         I.checkOption('plan_b');
     }
     I.fillField('gname', current.氏名);
+
+    let term = await I.grabValueFrom('select[name="reserve_t"]');
+    let headcount = await I.grabValueFrom('select[name="hc"]');
+
     I.click('利用規約に同意して次へ');
 //    assert.equal(current.合計料金 - 0, I.testPrice());
     I.see(current.合計料金);
+    I.seeTerm(term);
+    I.seeHeadCount(headcount);
+    if(current.朝食 == 'on'){
+        I.see('朝食: あり');
+    }else{
+        I.see('朝食: なし');
+    }
+    if(current.昼からチェックインプラン == 'on'){
+        I.see('昼からチェックインプラン');
+    }
+    if(current.お得な観光プラン == 'on') {
+        I.see('お得な観光プラン');
+    }
+    I.see(current.氏名);
 });

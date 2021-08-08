@@ -4,21 +4,12 @@ module.exports = function() {
 //    var this = require('./this');
     var connector = require('./connector');
     var weekEnd;
-    var startDay;
-    var endDay;
+    var firstDay;
+    var lastDay;
 
     let today;
     let dateFrom;
     let dateTo;
-      var dayNames = [
-          'SUNDAY',
-          'MONDAY',
-          'TUESDAY',
-          'WEDNESDAY',
-          'THURSDAY',
-          'FRIDAY',
-          'SATURDAY'
-      ];
 
   return actor({
 
@@ -27,61 +18,68 @@ module.exports = function() {
         fromDay: function(startDay){
         var selector = "#datePick";
         var dateFrom;
-//console.log(startDay);
-//pause();
         	switch (startDay) {
         	case 'Sunday':
-//console.log(startDay);
                 dateFrom = connector.sunday();
-//console.log(dateFrom);
                 weekEnd = 0;
-                startDay = connector.dateFromSet();
+                firstDay = connector.dateFromSet();
                 this.fillField(selector, dateFrom);
-//console.log(startDay);
                 break;
         	case "Monday":
                 dateFrom = connector.monday();
                 weekEnd = 0;
-                startDay = connector.dateFromSet();
+                firstDay = connector.dateFromSet();
                 this.fillField(selector, dateFrom);
                 break;
         	case 'Tuesday':
                 dateFrom = connector.tuesday();
                 weekEnd = 0;
-                startDay = connector.dateFromSet();
+                firstDay = connector.dateFromSet();
                 this.fillField(selector, dateFrom);
                 break;
         	case 'Wednesday':
                 dateFrom = connector.wednesday();
                 weekEnd = 0;
-                startDay = connector.dateFromSet();
+                firstDay = connector.dateFromSet();
                 this.fillField(selector, dateFrom);
                 break;
         	case 'Thursday':
                 dateFrom = connector.thursday();
                 weekEnd = 0;
-                startDay = connector.dateFromSet();
+                firstDay = connector.dateFromSet();
                 this.fillField(selector, dateFrom);
                 break;
         	case 'Friday':
                 dateFrom = connector.friday();
                 weekEnd = 0;
-                startDay = connector.dateFromSet();
+                firstDay = connector.dateFromSet();
                 this.fillField(selector, dateFrom);
                 break;
         	case 'Saturday':
                 dateFrom = connector.saturday();
                 weekEnd = 0;
-                startDay = connector.dateFromSet();
+                firstDay = connector.dateFromSet();
                 this.fillField(selector, dateFrom);
                 break;
             default:
         	}
-                return dateFrom;
+//console.log(firstDay);
         },
 
-        termSet: function(term){
-            dateTo = connector.termSet(term);
+        seeTerm: function(term){
+//console.log(term);
+            var termText = term + "泊";
+            this.see(termText);
+            this.see(firstDay);
+            lastDay = connector.termSet(term);
+//console.log(firstDay);
+//console.log(lastDay);
+            this.see(lastDay);
+        },
+
+        seeHeadCount: function(headcount){
+            var headText = headcount + "名様";
+            this.see(headText);
         },
 
         getReserveUser: function(){
