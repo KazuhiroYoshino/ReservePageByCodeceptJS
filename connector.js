@@ -1,6 +1,6 @@
 const  { format, addDays, addMonths} = require('date-fns');
 
-const jtcDate = addDays(new Date(Date.now() + ((new Date().getTimezoneOffset() + (0 * 60)) * 60 * 1000)), 1);
+const jtcDate = addDays(new Date(Date.now() + ((new Date().getTimezoneOffset() + (1 * 60)) * 60 * 1000)), 1);
 const jstString = format(jtcDate, 'YYYY/MM/DD');
 const dayName = format(jtcDate, 'dddd');
 

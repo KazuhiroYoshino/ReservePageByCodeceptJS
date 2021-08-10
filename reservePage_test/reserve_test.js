@@ -79,4 +79,6 @@ Data(reserveTestTable).Scenario('Reserve Tests', async({I , current}) => {
         I.see('お得な観光プラン');
     }
     I.see(current.氏名);
+    I.click('確定');
+    I.see('ご来館、心よりお待ちしております。');
 });
